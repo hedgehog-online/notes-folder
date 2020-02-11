@@ -1,0 +1,114 @@
+* {
+    box-sizing: border-box;
+}
+
+body * {
+    transition: all 0.1s ease;
+    overflow: hidden;
+}
+body {
+    line-height: 1.6;
+    font-size: 18px;
+    background-color: #fafafa;
+    margin: 0;
+    padding: 0;
+}
+
+note-item {
+    display: block;
+    width: 100%;
+}
+note-item[content="text"] > note-content {
+    display: block;
+    white-space: pre-line;
+    margin: 40px auto;
+    max-width: 800px;
+}
+note-item > header {
+    max-width: 1000px;
+    height: 32px;
+    margin: 40px auto;
+    margin-bottom: 5px;
+    font-family: sans-serif;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #00000033;
+}
+/* no header for binary */
+note-item[content="binary"] > header {
+    border: none;
+}
+/* hide border from root folder */
+body > note-item[content=folder] > note-content {
+    border: 1px solid transparent;
+}
+/* make root folder's header wide */
+body > note-item[content=folder] > header {
+    max-width: 100%;
+}
+
+/* pad all folders */
+note-item[content=folder] {
+    padding: 10px 10px;
+}
+note-item[content=folder] > header {
+    border: none;
+}
+note-item[content=folder] > note-content {
+    border: 1px solid #00000022;
+    padding: 10px 10px;
+}
+
+/* deal with text overflow on long names */
+note-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+/* make buttons bigger and make sure they don't get smaller */
+note-controls {
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+/* center like everything */
+note-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* Display images narrowly */
+note-item[content="image"] {
+    display: block;
+    width: 200px;
+    max-height: 400px;
+    text-align: center;
+    margin: 10px;
+}
+/* only show header for images when hovering */
+note-item[content="image"] > header {
+    border-bottom: 1px solid transparent;
+}
+note-item[content="image"]:hover > header {
+    border-bottom: 1px solid #00000033;
+}
+/* hide buttons and dim title when not hovering */
+note-item[content="image"] > header button {
+    opacity: 0;
+}
+note-item[content="image"] > header note-name {
+    opacity: 30%;
+}
+note-item[content="image"]:not(:hover) header button {
+    margin-right: -100px;
+}
+note-item[content="image"]:hover > header note-name,
+note-item[content="image"]:hover > header button {
+    opacity: 100%;
+}
+/* size images to fit */
+note-item[content="image"] img {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}

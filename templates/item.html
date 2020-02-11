@@ -1,0 +1,11 @@
+<note-item content="{{type}}">
+    <header>
+        <note-name>{{name}}</note-name>
+        <note-controls>
+            {% for text, command in buttons %}
+            <button onclick="{{command}}">{{text}}</button>
+            {% endfor %}
+        </note-controls>
+    </header>
+    <note-content>{{content|safe}}</note-content>
+</note-item>

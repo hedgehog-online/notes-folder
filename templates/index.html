@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+
+<body>
+    <script>
+        function openItem(item, revealOnly) {
+            let xhr = new XMLHttpRequest();
+            let r = `/open?item=${item}`;
+            if (revealOnly == true) {
+                r += "&reveal_only=true";
+            }
+            xhr.open("GET", r, true);
+            xhr.send()
+        }
+    </script>
+
+    {{body|safe}}
+</body>
+
+</html>
