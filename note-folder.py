@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from flask import Flask, request, render_template, send_from_directory, escape
 from natsort import natsorted
+import random
 import os
 import subprocess
 import argparse
@@ -8,7 +9,18 @@ app = Flask(__name__)
 
 parser = argparse.ArgumentParser(description="Display folders as notes")
 parser.add_argument("--path", type=str, default=os.getcwd())
+parser.add_argument("--randomize", action='store_true')
 args = parser.parse_args()
+
+def shuffle(array):
+    a = array.copy()
+    random.shuffle(a)
+    return a
+
+sort_fn = natsorted
+if args.randomize:
+    sort_fn = shuffle
+
 root_path = os.path.abspath(args.path)
 
 
@@ -67,7 +79,7 @@ def render(path=None):
         type = "folder"
         display_path += "/"
         buttons = [("Show in Finder", f"""openItem('{short_path}', true)""")]
-        for item in natsorted(os.listdir(path)):
+        for item in sort_fn(os.listdir(path)):
             if item[0] == ".":  # skip hidden
                 continue
             content += render(os.path.join(path, item))
